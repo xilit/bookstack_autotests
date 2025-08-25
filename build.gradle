@@ -1,7 +1,21 @@
 plugins {
     id 'java'
     id 'application'
-    id 'io.qameta.allure' version '2.11.2'
+    id 'io.qameta.allure' version '2.12.0'
+}
+
+allure {
+    version = '2.24.0'  // Версия Allure Report
+    adapter {
+        frameworks {
+            junit5 {
+                adapterVersion = '2.24.0'  // Версия адаптера
+            }
+        }
+    }
+    report {
+        reportDir = file('build/allure-report')
+    }
 }
 
 group = 'org.example'
@@ -25,16 +39,12 @@ dependencies {
 
     // Дополнительно — для генерации данных
     testImplementation 'net.datafaker:datafaker:2.1.0'
+
+    // Logging
+    implementation 'ch.qos.logback:logback-classic:1.5.18'
 }
 
 test {
     useJUnitPlatform()
-    systemProperty 'selenide.headless', 'true'  // запуск без GUI
-}
-
-allure {
-    version = '2.24.0'
-    useJUnit5 {
-        version = '2.24.0'
-    }
+    systemProperty 'selenide.headless', 'true'
 }
